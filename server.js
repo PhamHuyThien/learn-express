@@ -6,19 +6,27 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
-const authRouter = require("./routers/auth.router");
-const userRouter = require("./routers/user.router");
-const adminRouter = require("./routers/admin.router");
+const apiAuthRouter = require("./routers/api.auth");
+const apiUserRouter = require("./routers/api.user");
+const apiAdminRouter = require("./routers/api.admin");
 
-const auths = require("./mids/auth.mid");
+const homeRouter = require("./routers/home");
+
+
+const authMid = require("./mids/auth");
+
+app.set("view engine", "ejs");
+app.set("views", "./views");
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/user", auths.isAuthenticated, userRouter);
-app.use("/api/v1/admin", auths.isAdmin, adminRouter);
+app.use("/api/v1/auth", apiAuthRouter);
+app.use("/api/v1/user", authMid.isAuthenticated, apiUserRouter);
+app.use("/api/v1/admin", authMid.isAdmin, apiAdminRouter);
+
+app.use("/", homeRouter);
 
 mongoose.connect('mongodb://localhost:27017/test', function (err) {
     if (err)

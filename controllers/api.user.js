@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const User = require("../models/user.model");
+const User = require("../models/user");
 const regex = require("../utils/regex.const");
 
 module.exports.userInfo = async function (req, res) {

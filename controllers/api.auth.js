@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
-const User = require("../models/user.model");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const auths = require("../mids/auth.mid");
+const auths = require("../mids/auth");
 const regex = require("../utils/regex.const");
 
 module.exports.login = async function (req, res) {

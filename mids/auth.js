@@ -33,7 +33,6 @@ async function isAdmin(req, res, next) {
 function getTokenFromHeader(req) {
     if (req.headers?.[AUTHORIZATION_KEY] && req.headers[AUTHORIZATION_KEY].split(" ")[0] == AUTHORIZATION_TYPE) {
         return req.headers[AUTHORIZATION_KEY].split(" ")[1];
-
     }
     return null;
 }
