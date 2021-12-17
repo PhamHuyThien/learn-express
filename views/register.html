@@ -15,13 +15,13 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-5">
-                    <h2 class="heading-section">Đăng nhập LearnExpressJs</h2>
+                    <h2 class="heading-section">Đăng kí LearnExpressJs</h2>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-4">
                     <div class="login-wrap p-0">
-                        <h3 class="mb-4 text-center">Đăng nhập để trải nghiệm</h3>
+                        <h3 class="mb-4 text-center">Bạn chưa có tài khoản?</h3>
                         <form action="#" class="signin-form">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Tài khoản" id="username" required>
@@ -32,32 +32,26 @@
                                 <span toggle="#password-field"
                                     class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="re-password"
+                                    placeholder="Nhập lại mật khẩu" required>
+                                <span toggle="#password-field"
+                                    class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            </div>
                             <div class="">
-                                <label class="checkbox-wrap checkbox-primary">Ghi nhớ đăng nhập
+                                <label class="checkbox-wrap checkbox-primary">Đồng ý điều khoản của chúng tôi
                                     <input type="checkbox" checked>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary submit px-3" id="login">Đăng nhập</button>
+                                <button type="submit" class="form-control btn btn-primary submit px-3"
+                                    id="register">Đăng kí</button>
                             </div>
-                            <div class="form-group d-md-flex">
-                                <div class="w-50 text-md-left">
-                                    <a href="/forgot-pasword" style="color: #fff">Quên mật khẩu</a>
-                                </div>
-                                <div class="w-50 text-md-right">
-                                    <a href="/register" style="color: #fff">Đăng kí tài khoản</a>
-                                </div>
+                            <div class="text-end text-md-right">
+                                <a href="/login" style="color: #fff">Đăng nhập</a>
                             </div>
                         </form>
-                        <p class="w-100 text-center">&mdash; Hoặc đăng nhập &mdash;</p>
-                        <div class="social d-flex text-center">
-                            <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span>
-                                Facebook</a>
-                            <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span>
-                                Twitter</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -73,12 +67,19 @@
         if (window.localStorage.token != null) {
             window.location.href = "/";
         }
-        $("#login").click(function (btn) {
+        $("#register").click(function (btn) {
             btn.preventDefault();
             let username = $("#username").val();
             let password = $("#password").val();
+            let rePassword = $("#re-password").val();
+            if (username == "")
+                return alert("Tài khoản không được để trống!");
+            if (password == "")
+                return alert("Mật khẩu không được để trống!");
+            if (password != rePassword)
+                return alert("Mật khẩu nhập lại không khớp!");
             $.post({
-                url: "/api/v1/auth/login",
+                url: "/api/v1/auth/register",
                 data: JSON.stringify({
                     username: username,
                     password: password
@@ -86,12 +87,8 @@
                 contentType: "application/json",
                 dataType: "json"
             }).done(function (data) {
-                localStorage.token = data.data.token;
-                localStorage.username = data.data.username;
-                localStorage.role = data.data.role;
-                localStorage.status = data.data.status;
-                alert("Đăng nhập thành công.");
-                window.location.href = "/";
+                alert("Đăng kí thành công.");
+                window.location.href = "/login";
             }).fail(function (err) {
                 alert(err.responseJSON.message);
             });
