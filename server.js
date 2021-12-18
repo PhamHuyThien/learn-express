@@ -10,6 +10,7 @@ const authRouter = require("./routers/auth.router");
 const userRouter = require("./routers/user.router");
 const adminRouter = require("./routers/admin.router");
 const fileRouter = require("./routers/file.router");
+const songRouter = require("./routers/song.router");
 
 const homeRouter = require("./routers/home.router");
 
@@ -27,6 +28,7 @@ app.use("/api/v1/auth", authRouter);
 
 app.use("/api/v1/user", authMid.isAuthenticated, userRouter);
 app.use("/api/v1/file", authMid.isAuthenticated, fileRouter);
+app.use("/api/v1/song", authMid.isAuthenticated, songRouter);
 
 app.use("/api/v1/admin", authMid.isAdmin, adminRouter);
 
