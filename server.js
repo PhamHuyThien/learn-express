@@ -6,14 +6,14 @@ const app = express();
 
 const bodyParser = require("body-parser");
 
-const apiAuthRouter = require("./routers/api.auth");
-const apiUserRouter = require("./routers/api.user");
-const apiAdminRouter = require("./routers/api.admin");
+const authRouter = require("./routers/auth.router");
+const userRouter = require("./routers/user.router");
+const adminRouter = require("./routers/admin.router");
+const fileRouter = require("./routers/file.router");
 
-const homeRouter = require("./routers/home");
+const homeRouter = require("./routers/home.router");
 
-
-const authMid = require("./mids/auth");
+const authMid = require("./mids/auth.mid");
 
 app.set("views", "./views");
 app.engine("html", require("ejs").renderFile);
@@ -23,9 +23,12 @@ app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/api/v1/auth", apiAuthRouter);
-app.use("/api/v1/user", authMid.isAuthenticated, apiUserRouter);
-app.use("/api/v1/admin", authMid.isAdmin, apiAdminRouter);
+app.use("/api/v1/auth", authRouter);
+
+app.use("/api/v1/user", authMid.isAuthenticated, userRouter);
+app.use("/api/v1/file", authMid.isAuthenticated, fileRouter);
+
+app.use("/api/v1/admin", authMid.isAdmin, adminRouter);
 
 app.use("/", homeRouter);
 
