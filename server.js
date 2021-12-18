@@ -17,8 +17,8 @@ const homeRouter = require("./routers/home.router");
 const authMid = require("./mids/auth.mid");
 
 app.set("views", "./views");
-app.engine("html", require("ejs").renderFile);
-app.set("view engine", "html");
+// app.engine("html", require("ejs").renderFile);
+app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
