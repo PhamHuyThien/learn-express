@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/v1/auth", authRouter);
 
 app.use("/api/v1/user", authMid.isAuthenticated, userRouter);
-app.use("/api/v1/file", authMid.isAuthenticated, fileRouter);
+app.use("/api/v1/file", fileRouter);
 app.use("/api/v1/song", authMid.isAuthenticated, songRouter);
 
 app.use("/api/v1/admin", authMid.isAdmin, adminRouter);

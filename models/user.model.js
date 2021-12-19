@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const regex = require("../utils/regex.const");
 
-var userSchema = mongoose.Schema({
+module.exports = mongoose.model("User", mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     username: {
         type: String,
@@ -41,6 +41,4 @@ var userSchema = mongoose.Schema({
     createAt: Number,
     updateAt: Number,
     disableAt: Number
-}, { versionKey: false });
-
-module.exports = mongoose.model("User", userSchema);
+}, { versionKey: false }));
