@@ -2,6 +2,7 @@ const Song = require("../models/song.model");
 const mongoose = require("mongoose");
 
 const tainhac123 = require("../utils/tainhac123.lib");
+const trangtainhac = require("../utils/trangtainhac.lib");
 
 module.exports.getSong = async function (req, res) {
     const _id = req.params.id;
@@ -66,20 +67,39 @@ module.exports.deleteSong = async function (req, res) {
 }
 
 module.exports.searchSong = async function (req, res) {
+    let engine = req.query.engine;
     let search = req.query.search;
-    tainhac123.search(search).then(function (songs) {
-        return res.json({ status: true, message: "Thành công.", data: songs });
-    }).catch(function (err) {
-        return res.json({ status: true, message: "Thành công.", data: [] });
-    });
+    if (engine == "trangtainhac") {
+        trangtainhac.search(search).then(function (songs) {
+            return res.json({ status: true, message: "Thành công.", data: songs });
+        }).catch(function (err) {
+            return res.json({ status: true, message: "Thành công.", data: [] });
+        });
+    } else {
+        tainhac123.search(search).then(function (songs) {
+            return res.json({ status: true, message: "Thành công.", data: songs });
+        }).catch(function (err) {
+            return res.json({ status: true, message: "Thành công.", data: [] });
+        });
+
+    }
 }
 
 
 module.exports.detailSong = async function (req, res) {
+    let engine = req.query.engine;
     let path = req.query.path;
-    tainhac123.detail(path).then(function (song) {
-        return res.json({ status: true, message: "Thành công.", data: song });
-    }).catch(function (err) {
-        return res.status(400).json({ status: false, message: "Bài hát không hợp lệ." });
-    });
+    if (engine == "trangtainhac") {
+        trangtainhac.detail(path).then(function (song) {
+            return res.json({ status: true, message: "Thành công.", data: song });
+        }).catch(function (err) {
+            return res.status(400).json({ status: false, message: "Bài hát không hợp lệ." });
+        });
+    } else {
+        tainhac123.detail(path).then(function (song) {
+            return res.json({ status: true, message: "Thành công.", data: song });
+        }).catch(function (err) {
+            return res.status(400).json({ status: false, message: "Bài hát không hợp lệ." });
+        });
+    }
 }

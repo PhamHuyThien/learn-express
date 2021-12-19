@@ -98,8 +98,13 @@
                             <div class="form-group" style="display: flex;">
                                 <input type="text" class="form-control" placeholder="Em cua ngay hom qua....."
                                     id="content" style="width: 70%; margin-right: 10px;">
-                                <button type="submit" class="btn btn-primary btn-sm" id="search"
-                                    style="margin: 5px 0; width: 30%;">Tìm kiếm</button>
+                                <select id="search-engine" class="form-control" style="width: 45%; margin-right: 10px;">
+                                    <option selected>Search by...</option>
+                                    <option value="trangtainhac" selected>TrangTaiNhac</option>
+                                    <option value="tainhac123">TaiNhac123</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm" id="search" style="width: 30%;">Tìm
+                                    kiếm</button>
                             </div>
                         </form>
                         <table class="table table-striped" id="table" style="display: none;">
@@ -121,6 +126,7 @@
     </body>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@5.3.2/dist/amplitude.js"></script>
     <script>
+        var searchEngine = "";
         window.onload = function () {
             if (window.localStorage.token == null) {
                 window.location.href = "/login";
@@ -138,11 +144,11 @@
             $("#search").click(function (btn) {
                 btn.preventDefault();
                 let content = $("#content").val();
-                if (content.trim() == "")
-                    return Toast.fire({
-                        icon: 'warning',
-                        title: "Bạn phải nhập nội dung tìm kiếm."
-                    });
+                // if (content.trim() == "")
+                //     return Toast.fire({
+                //         icon: 'warning',
+                //         title: "Bạn phải nhập nội dung tìm kiếm."
+                //     });
                 search(content);
             });
             search("");
@@ -150,8 +156,9 @@
 
         function search(content) {
             $("#load").show();
+            searchEngine = $("#search-engine").val();
             $.get({
-                url: "/api/v1/song/search?search=" + encodeURIComponent(content),
+                url: "/api/v1/song/search?search=" + encodeURIComponent(content) + "&engine=" + searchEngine,
                 headers: {
                     authorization: "Bearer " + localStorage.token
                 },
@@ -206,7 +213,7 @@
             }, function () {
                 $("#load").show();
                 $.get({
-                    url: "/api/v1/song/detail?path=" + decodeURIComponent(path),
+                    url: "/api/v1/song/detail?path=" + decodeURIComponent(path) + "&engine=" + searchEngine,
                     headers: {
                         authorization: "Bearer " + localStorage.token
                     },
@@ -218,7 +225,7 @@
                         data: JSON.stringify({
                             "name": song.name,
                             "singer": single,
-                            "path": "https://tainhac123.com/" + song.download,
+                            "path": song.download,
                             "image": song.image
                         }),
                         headers: {

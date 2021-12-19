@@ -16,7 +16,7 @@ async function search(text) {
             let nodeImageSong = song.querySelector("img");
             return {
                 name: nodeNameSong?.innerHTML,
-                detail: nodeNameSong?.getAttribute("href").replaceAll(TAINHAC123_HOME, ""),
+                detail: TAINHAC123_HOME + nodeNameSong?.getAttribute("href").replaceAll(TAINHAC123_HOME, ""),
                 singer: nodeSingle?.innerHTML,
                 image: nodeImageSong?.getAttribute("src")
             };
@@ -29,7 +29,7 @@ async function search(text) {
 
 async function detail(path) {
     try {
-        const { document } = await (await jsdom.fromURL(TAINHAC123_HOME + path)).window;
+        const { document } = await (await jsdom.fromURL(path)).window;
         let nodeImage = document.getElementById("disco").querySelector("img");
         let nodeName = document.getElementsByClassName("bh-info")[0].querySelector("h2");
         let nodeAudio = document.getElementById("audio-player-container");
@@ -37,7 +37,7 @@ async function detail(path) {
         return {
             name: nodeName?.innerHTML,
             image: nodeImage?.getAttribute("src"),
-            download: nodeAudio?.getAttribute("data-src").replaceAll(TAINHAC123_HOME, ""),
+            download: TAINHAC123_HOME + nodeAudio?.getAttribute("data-src").replaceAll(TAINHAC123_HOME, ""),
             lyric: nodeLyrics.getAttribute("data-lyric")
         };
     } catch (e) {
