@@ -6,7 +6,7 @@ const md5 = require("md5");
 const TAINHAC123_HOME = "https://tainhac123.com";
 
 async function search(text) {
-    text = text == undefined ? "" : "/tim-kiem/" + encodeURIComponent(text);
+    text = text == undefined || text == "" ? "" : "/tim-kiem/" + encodeURIComponent(text);
     try {
         const { document } = await (await jsdom.fromURL(TAINHAC123_HOME + text)).window;
         let songs = document.getElementsByClassName("menu");

@@ -1,4 +1,6 @@
-$(document).ready(function () {
+$(document).ready(loadSongs);
+
+function loadSongs() {
 	$.get({
 		url: "/api/v1/song/",
 		headers: {
@@ -6,6 +8,7 @@ $(document).ready(function () {
 		},
 		dataType: "json"
 	}).then(function (data) {
+		$("#playlist").empty();
 		let songs = data.data.map(function (s, i) {
 			addToPlayList(s, i);
 			return {
@@ -16,12 +19,11 @@ $(document).ready(function () {
 				cover_art_url: s.image
 			};
 		});
-		console.log(songs);
 		amplitudeInit(songs);
 	}).catch(function (err) {
 		console.log(err);
 	});
-})
+}
 
 function amplitudeInit(songs) {
 	Amplitude.init({
@@ -30,19 +32,48 @@ function amplitudeInit(songs) {
 }
 
 function addToPlayList(s, index) {
-	let song = `<div class="white-player-playlist-song" data-amplitude-song-index="${index}">
+	let name = s.name.length > 22 ? s.name.substr(0, 22) + "..." : s.name;
+	let song = `<div class="white-player-playlist-song">
 		<img src="${s.image}" />
 		<div class="row">
-		<div class="col playlist-song-meta amplitude-song-container amplitude-play-pause">
-			<span class="playlist-song-name">${s.name}</span>
-			<span class="playlist-artist-album">PhamHuyThien</span>
-		</div>
+			<div class="col playlist-song-meta amplitude-song-container amplitude-play-pause" data-amplitude-song-index="${index}">
+				<span class="playlist-song-name">${name}</span>
+				<span class="playlist-artist-album">${s.singer}</span>
+			</div>
 		<div class="col text-right">
-		<button type="submit" class="btn btn-danger btn-sm mt-2" id="">Xóa</button>
+		<button type="submit" class="btn btn-primary btn-sm mt-2" onclick="removeSongFavorite('${s._id}')">❌</button>
 		</div>
 		</div>
 		</div>`;
 	$("#playlist").append(song);
+}
+
+function removeSongFavorite(_id) {
+	swConfirm({
+		title: "Xóa khỏi danh sách yêu thích",
+		text: "Bạn muốn xóa khỏi danh sách yêu thích chứ?",
+		icon: "question"
+	}, function () {
+		$.ajax({
+			url: "/api/v1/song/" + _id,
+			method: "delete",
+			headers: {
+				authorization: "Bearer " + localStorage.token
+			},
+			dataType: "json"
+		}).done(function () {
+			loadSongs();
+			Toast.fire({
+				icon: 'success',
+				title: "Xóa khỏi playlist thành công."
+			});
+		}).fail(function () {
+			Toast.fire({
+				icon: 'error',
+				title: "Có lỗi xảy ra, hãy thử lại."
+			});
+		});
+	});
 }
 /*
   Shows the playlist

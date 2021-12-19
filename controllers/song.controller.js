@@ -73,3 +73,13 @@ module.exports.searchSong = async function (req, res) {
         return res.json({ status: true, message: "Thành công.", data: [] });
     });
 }
+
+
+module.exports.detailSong = async function (req, res) {
+    let path = req.query.path;
+    tainhac123.detail(path).then(function (song) {
+        return res.json({ status: true, message: "Thành công.", data: song });
+    }).catch(function (err) {
+        return res.status(400).json({ status: false, message: "Bài hát không hợp lệ." });
+    });
+}
