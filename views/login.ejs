@@ -66,6 +66,7 @@
             }
             $("#login").click(function (btn) {
                 btn.preventDefault();
+                $("#load").show();
                 let username = $("#username").val();
                 let password = $("#password").val();
                 $.post({
@@ -87,11 +88,13 @@
                     }).then(function () {
                         window.location.href = "/";
                     });
+                    $("#load").hide();
                 }).fail(function (err) {
                     Toast.fire({
                         icon: 'error',
                         title: err.responseJSON.message
                     });
+                    $("#load").hide();
                 });
             });
         };
