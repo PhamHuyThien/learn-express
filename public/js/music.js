@@ -6,8 +6,8 @@ $(document).ready(function () {
 		},
 		dataType: "json"
 	}).then(function (data) {
-		let songs = data.data.map(function (s) {
-			addToPlayList(s);
+		let songs = data.data.map(function (s, i) {
+			addToPlayList(s, i);
 			return {
 				name: s.name,
 				artist: s.singer,
@@ -29,14 +29,19 @@ function amplitudeInit(songs) {
 	});
 }
 
-function addToPlayList(s) {
-	let song = `<div class="white-player-playlist-song amplitude-song-container amplitude-play-pause" data-amplitude-song-index="0">
+function addToPlayList(s, index) {
+	let song = `<div class="white-player-playlist-song" data-amplitude-song-index="${index}">
 		<img src="${s.image}" />
-		<div class="playlist-song-meta">
+		<div class="row">
+		<div class="col playlist-song-meta amplitude-song-container amplitude-play-pause">
 			<span class="playlist-song-name">${s.name}</span>
 			<span class="playlist-artist-album">PhamHuyThien</span>
 		</div>
-	</div>`;
+		<div class="col text-right">
+		<button type="submit" class="btn btn-danger btn-sm mt-2" id="">Xóa</button>
+		</div>
+		</div>
+		</div>`;
 	$("#playlist").append(song);
 }
 /*

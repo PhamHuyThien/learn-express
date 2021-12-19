@@ -4,92 +4,122 @@
         <section class="ftco-section-1">
             <div class="container">
                 <div class="row justify-content-center">
-                    <div id="white-player">
-                        <div class="white-player-top">
-                            <div class="center">
-                                <button class="btn btn-primary btn-sm" id="logout">Đăng xuất</button>
-                            </div>
-                            <div>
-                                <img src="https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/show-playlist.svg"
-                                    class="show-playlist" />
-                            </div>
-                        </div>
-                        <div id="white-player-center">
-                            <img data-amplitude-song-info="cover_art_url" class="main-album-art" />
-
-                            <div class="song-meta-data">
-                                <span data-amplitude-song-info="name" class="song-name"></span>
-                                <span data-amplitude-song-info="artist" class="song-artist"></span>
-                            </div>
-
-                            <div class="time-progress">
-                                <div id="progress-container">
-                                    <input type="range" class="amplitude-song-slider" />
-                                    <progress id="song-played-progress"
-                                        class="amplitude-song-played-progress"></progress>
-                                    <progress id="song-buffered-progress" class="amplitude-buffered-progress"
-                                        value="0"></progress>
-                                </div>
-
-                                <div class="time-container">
-                                    <span class="current-time">
-                                        <span class="amplitude-current-minutes"></span>:<span
-                                            class="amplitude-current-seconds"></span>
-                                    </span>
-                                    <span class="duration">
-                                        <span class="amplitude-duration-minutes"></span>:<span
-                                            class="amplitude-duration-seconds"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="white-player-controls">
-                            <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
-                            <div class="amplitude-prev" id="previous"></div>
-                            <div class="amplitude-play-pause" id="play-pause"></div>
-                            <div class="amplitude-next" id="next"></div>
-                            <div class="amplitude-repeat" id="repeat"></div>
-                        </div>
-
-                        <div id="white-player-playlist-container">
-                            <div class="white-player-playlist-top">
-                                <div>
-
+                    <div class="col-sm-6 col-xs-12">
+                        <div id="white-player">
+                            <div class="white-player-top">
+                                <div class="center">
+                                    <button class="btn btn-primary btn-sm" id="logout">Đăng xuất</button>
                                 </div>
                                 <div>
-                                    <span class="queue">Danh sách nhạc</span>
-                                </div>
-                                <div>
-                                    <img src="https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/close.svg"
-                                        class="close-playlist" />
+                                    <img src="https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/show-playlist.svg"
+                                        class="show-playlist" />
                                 </div>
                             </div>
+                            <div id="white-player-center">
+                                <img data-amplitude-song-info="cover_art_url" class="main-album-art" />
 
-                            <div class="white-player-up-next">
-                                Tiếp theo
-                            </div>
+                                <div class="song-meta-data">
+                                    <span data-amplitude-song-info="name" class="song-name"></span>
+                                    <span data-amplitude-song-info="artist" class="song-artist"></span>
+                                </div>
 
-                            <div class="white-player-playlist" id="playlist">
-                            </div>
-
-                            <div class="white-player-playlist-controls">
-                                <img data-amplitude-song-info="cover_art_url" class="playlist-album-art" />
-
-                                <div class="playlist-controls">
-                                    <div class="playlist-meta-data">
-                                        <span data-amplitude-song-info="name" class="song-name"></span>
-                                        <span data-amplitude-song-info="artist" class="song-artist"></span>
+                                <div class="time-progress">
+                                    <div id="progress-container">
+                                        <input type="range" class="amplitude-song-slider" />
+                                        <progress id="song-played-progress"
+                                            class="amplitude-song-played-progress"></progress>
+                                        <progress id="song-buffered-progress" class="amplitude-buffered-progress"
+                                            value="0"></progress>
                                     </div>
 
-                                    <div class="playlist-control-wrapper">
-                                        <div class="amplitude-prev" id="playlist-previous"></div>
-                                        <div class="amplitude-play-pause" id="playlist-play-pause"></div>
-                                        <div class="amplitude-next" id="playlist-next"></div>
+                                    <div class="time-container">
+                                        <span class="current-time">
+                                            <span class="amplitude-current-minutes"></span>:<span
+                                                class="amplitude-current-seconds"></span>
+                                        </span>
+                                        <span class="duration">
+                                            <span class="amplitude-duration-minutes"></span>:<span
+                                                class="amplitude-duration-seconds"></span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
+
+                            <div id="white-player-controls">
+                                <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
+                                <div class="amplitude-prev" id="previous"></div>
+                                <div class="amplitude-play-pause" id="play-pause"></div>
+                                <div class="amplitude-next" id="next"></div>
+                                <div class="amplitude-repeat" id="repeat"></div>
+                            </div>
+
+                            <div id="white-player-playlist-container">
+                                <div class="white-player-playlist-top">
+                                    <div>
+
+                                    </div>
+                                    <div>
+                                        <span class="queue">Danh sách nhạc</span>
+                                    </div>
+                                    <div>
+                                        <img src="https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/close.svg"
+                                            class="close-playlist" />
+                                    </div>
+                                </div>
+
+                                <div class="white-player-up-next">
+                                    Tiếp theo
+                                </div>
+
+                                <div class="white-player-playlist" id="playlist">
+                                </div>
+
+                                <div class="white-player-playlist-controls">
+                                    <img data-amplitude-song-info="cover_art_url" class="playlist-album-art" />
+
+                                    <div class="playlist-controls">
+                                        <div class="playlist-meta-data">
+                                            <span data-amplitude-song-info="name" class="song-name"></span>
+                                            <span data-amplitude-song-info="artist" class="song-artist"></span>
+                                        </div>
+
+                                        <div class="playlist-control-wrapper">
+                                            <div class="amplitude-prev" id="playlist-previous"></div>
+                                            <div class="amplitude-play-pause" id="playlist-play-pause"></div>
+                                            <div class="amplitude-next" id="playlist-next"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12 pt-5">
+                        <div class="form-group" style="display: flex;">
+                            <input type="text" class="form-control" placeholder="Em cua ngay hom qua....." id="username"
+                                style="width: 70%; margin-right: 10px;">
+                            <button type="submit" class="btn btn-primary btn-sm" id="login"
+                                style="margin: 5px 0; width: 30%;">Tìm kiếm</button>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Bài hát</th>
+                                    <th scope="col">Playlist</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td><a href="#"><img
+                                                src="https://cf.shopee.vn/file/8935c8d82c3c24396257ca3c8e151054"
+                                                style="width: 35px; border-radius: 10px;" /> Tình Thương Phu Thê (Chí
+                                            Hướng)</a></td>
+                                    <td><button type="submit" class="btn btn-danger btn-sm" id="">Yêu thích</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
