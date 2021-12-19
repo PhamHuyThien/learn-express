@@ -34,7 +34,14 @@ app.use("/api/v1/admin", authMid.isAdmin, adminRouter);
 
 app.use("/", homeRouter);
 
-mongoose.connect('mongodb://localhost:27017/test', function (err) {
+let host = process.env.MDB_HOST;
+let port = process.env.MDB_PORT;
+let db = process.env.MDB_DB;
+let user = process.env.MDB_USER;
+let pass = process.env.MDB_PASS;
+let auth = user != "" && pass != "" ? user + ":" + pass + "@" : "";
+let url = `mongodb://${auth}${host}:${port}/${db}`;
+mongoose.connect(url, function (err) {
     if (err)
         return console.log("connect to db Error => " + err.toString());
     app.listen(process.env.SERVER_PORT, () => {

@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+    dev_lex:
+        build: ./
+        command: node server
+        container_name: dev_lex
+        restart: unless-stopped
+        ports:
+            - 3000:3000
+        environment:
+            - TZ=Asia/Ho_Chi_Minh
+            - SERVER_PORT=3000
+            - UPLOAD_DIR=/usr/dev/learn-express/data
+            - MDB_HOST=localhost
+            - MDB_PORT=27017
+            - MDB_DB=test
+            - MDB_USER=
+            - MDB_PASS=
+        stdin_open: true
+        tty: true
+        volumes:
+            - .:/usr/dev/learn-express
+            - /usr/dev/learn-express/node_modules
+            - ./data:/usr/dev/learn-express/data
+        networks:
+            - dev-nw
+volumes:
+    dev_lex:
+networks:
+    dev-nw:
+       external: true
