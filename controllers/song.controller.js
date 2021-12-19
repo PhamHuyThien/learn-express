@@ -1,6 +1,8 @@
 const Song = require("../models/song.model");
 const mongoose = require("mongoose");
 
+const tainhac123 = require("../utils/tainhac123.lib");
+
 module.exports.getSong = async function (req, res) {
     const _id = req.params.id;
     Song.findOne({ _id: _id }).then(function (song) {
@@ -60,5 +62,14 @@ module.exports.deleteSong = async function (req, res) {
         return res.json({ status: false, message: "Xóa bài hát thành công!", data: song });
     }).catch(function (err) {
         return res.status(400).json({ status: false, message: err.toString() })
+    });
+}
+
+module.exports.searchSong = async function (req, res) {
+    let search = req.query.search;
+    tainhac123.search(search).then(function (songs) {
+        return res.json({ status: true, message: "Thành công.", data: songs });
+    }).catch(function (err) {
+        return res.json({ status: true, message: "Thành công.", data: [] });
     });
 }

@@ -95,9 +95,9 @@
                     </div>
                     <div class="col-sm-6 col-xs-12 pt-5">
                         <div class="form-group" style="display: flex;">
-                            <input type="text" class="form-control" placeholder="Em cua ngay hom qua....." id="username"
+                            <input type="text" class="form-control" placeholder="Em cua ngay hom qua....." id="content"
                                 style="width: 70%; margin-right: 10px;">
-                            <button type="submit" class="btn btn-primary btn-sm" id="login"
+                            <button type="submit" class="btn btn-primary btn-sm" id="search"
                                 style="margin: 5px 0; width: 30%;">Tìm kiếm</button>
                         </div>
                         <table class="table table-striped">
@@ -108,16 +108,8 @@
                                     <th scope="col">Playlist</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td><a href="#"><img
-                                                src="https://cf.shopee.vn/file/8935c8d82c3c24396257ca3c8e151054"
-                                                style="width: 35px; border-radius: 10px;" /> Tình Thương Phu Thê (Chí
-                                            Hướng)</a></td>
-                                    <td><button type="submit" class="btn btn-danger btn-sm" id="">Yêu thích</button>
-                                    </td>
-                                </tr>
+                            <tbody id="table-value">
+
                             </tbody>
                         </table>
                     </div>
@@ -135,6 +127,56 @@
                 localStorage.clear();
                 location.href = "/";
             });
+            $("#search").click(function () {
+                let content = $("#content").val();
+                if (content.trim() == "")
+                    return Toast.fire({
+                        icon: 'warning',
+                        title: "Bạn phải nhập nội dung tìm kiếm."
+                    });
+                $.get({
+                    url: "/api/v1/song/search?search=" + encodeURIComponent(content),
+                    headers: {
+                        authorization: "Bearer " + localStorage.token
+                    },
+                    dataType: "json"
+                }).done(function (data) {
+                    $("#table-value").empty();
+                    if (data.data.length > 0) {
+                        data.data.forEach(function (song, id) {
+                            if (id < 5)
+                                $("#table-value").append(addValueToTable(song, id + 1));
+                        });
+                    } else
+                        Toast.fire({
+                            icon: 'warning',
+                            title: "Không tìm thấy bài hát nào."
+                        });
+                }).fail(function (err) {
+
+                });
+            });
         };
+
+        function addValueToTable(song, id) {
+            return `<tr>
+                <th scope="row">${id}</th>
+                <td>
+                    <a href="#">
+                        <img src="${song.image}" style="width: 35px; border-radius: 10px;" /> 
+                        ${song.name} (${song.singer})
+                    </a>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-danger btn-sm" id="" onclick="love('${song.detail}')">
+                        ♥️
+                    </button>
+                </td>
+            </tr>`;
+        }
+
+        function love(path) {
+
+        }
     </script>
     <% include ./layout/footer.ejs %>
